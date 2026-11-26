@@ -8,7 +8,7 @@
 frontend/
 ├── index.html          # 入口 HTML
 ├── package.json
-├── vite.config.js      # publicDir 指向 static，envDir 指向仓库根目录
+├── vite.config.js      # publicDir 指向 static
 ├── src/
 │   ├── main.js
 │   ├── App.vue
@@ -19,9 +19,8 @@ frontend/
 
 ## 说明
 
-- `static/` 下所有文件会被映射到站点根路径，例如 `static/images/hero.png` 对应 `/images/hero.png`。
-- 环境变量读取仓库根目录的 `.env`，只有 `VITE_` 开头的变量会注入前端。
-- 开发环境下 `/api` 请求会被代理到后端 `http://127.0.0.1:8000`。
+- `static/` 下所有文件会被映射到站点根路径，例如 `static/images/pet-waving.png` 对应 `/images/pet-waving.png`。
+- Demo 从确认宠物形象开始，经过命名、情绪评估和旅程须知后进入发现页。
 
 ## 运行
 
