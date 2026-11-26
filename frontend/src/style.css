@@ -20,9 +20,12 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--leaf); outl
   box-shadow: 0 0 36px #62463b15;
 }
 
-.onboarding, .discover { position: relative; min-height: max(640px, 100svh); }
+.onboarding, .app-shell--main { min-height: max(640px, 100svh); }
+.app-shell--main { display: flex; flex-direction: column; }
+.app-shell--pet { background: #fffee0; }
 
 .onboarding {
+  position: relative;
   height: max(640px, 100svh);
   overflow: hidden;
   text-align: center;
@@ -47,14 +50,14 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--leaf); outl
 }
 
 .step-title, .step-pet, .step-action, .name-field, .name-hint, .name-action,
-.assessment-options, .result-art, .result-message, .result-action {
+.assessment-options, .result-art, .result-message, .result-action, .custom-options, .custom-action {
   position: absolute;
   left: 50%;
   translate: -50% 0;
 }
 
 .step-title { top: 17%; width: 86%; font-size: 1.125rem; font-weight: 500; }
-.step-pet { top: 48%; width: 78%; height: 37%; object-fit: contain; translate: -50% -50%; }
+.step-pet { top: 48%; width: min(78%, 37svh); translate: -50% -50%; }
 
 .primary-button {
   width: min(50%, 200px);
@@ -66,6 +69,46 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--leaf); outl
 }
 
 .step-action { bottom: 12.5%; }
+.design-intro.notice-card {
+  position: absolute;
+  top: 25%;
+  padding-block: 62px;
+  text-align: center;
+}
+
+.custom-pet { top: 42%; width: min(70%, 34svh); }
+.custom-action { top: 80%; }
+.custom-action:disabled { opacity: .65; cursor: default; }
+
+.custom-options {
+  top: 55%;
+  display: grid;
+  width: min(80%, 290px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(6px, 1.1svh, 10px);
+}
+
+.custom-options button {
+  display: grid;
+  min-height: 44px;
+  height: clamp(44px, 8.8svh, 72px);
+  place-items: center;
+  padding: 4px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background: transparent;
+}
+
+.custom-options button[aria-pressed='true'] { border-color: #9eb489; background: #e6ecc8; }
+.shape-swatch, .color-swatch { display: block; width: clamp(31px, 6.2svh, 50px); aspect-ratio: 1; }
+.shape-swatch { --pet-color: #91b563; background: var(--head-fill, var(--pet-color)); }
+.shape-swatch[data-shape='oval'] { scale: .76 1; }
+.color-swatch { border-radius: 43% 53% 48% 49% / 35% 40% 61% 63%; background: var(--pet-color); }
+.pet-swatch { width: clamp(41px, 7.5svh, 62px); }
+
+.chosen-parts { position: absolute; top: 23%; right: 12%; display: grid; gap: 9px; justify-items: center; }
+.chosen-parts > * { width: 22px; }
+
 .name-field { top: 17%; display: block; width: 78%; }
 .name-field input { width: 100%; padding: 14px 20px; border: 0; border-radius: 22px; background: #fff; }
 .name-field input::placeholder { color: #4c6854; }
@@ -81,7 +124,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--leaf); outl
 .name-hint, .name-action { top: 66%; }
 .name-hint { width: 86%; line-height: 1.8; }
 
-.assessment-pet { top: 36%; width: 52%; height: 24%; }
+.assessment-pet { top: 36%; width: min(52%, 24svh); }
 .assessment-options {
   top: 51%;
   display: grid;
@@ -172,7 +215,97 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--leaf); outl
   font-size: 1.125rem;
 }
 
-.discover { display: flex; flex-direction: column; background: #fff; overflow: hidden; }
+.pet-home {
+  position: relative;
+  flex: 1;
+  min-height: 552px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 22% 8% at 28% 0%, #cbdab2 98%, transparent),
+    radial-gradient(ellipse 17% 10% at 50% 0%, #cbdab2 98%, transparent),
+    radial-gradient(ellipse 12% 6% at 65% 0%, #cbdab2 98%, transparent),
+    radial-gradient(ellipse 27% 16% at 101% 30%, #cbdab2 98%, transparent),
+    radial-gradient(ellipse 23% 15% at 93% 40%, #cbdab2 98%, transparent),
+    radial-gradient(ellipse 23% 15% at 6% 41%, #d5e484 98%, transparent),
+    radial-gradient(ellipse 24% 13% at 17% 42%, #d5e484 98%, transparent),
+    radial-gradient(ellipse 25% 16% at 0% 50%, #d5e484 98%, transparent),
+    linear-gradient(#fff 79%, #fffee0 79%);
+}
+
+.pet-home-header {
+  position: absolute;
+  inset: 7% 6% auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.pet-affection { display: flex; align-items: start; gap: 6px; }
+.pet-affection meter { width: 80px; height: 15px; margin-top: 6px; }
+.pet-affection meter::-webkit-meter-bar { border: 2px solid var(--green); background: #fff; }
+.pet-affection meter::-webkit-meter-optimum-value { border-radius: 999px; background: #efacba; }
+.pet-affection span { display: grid; justify-items: center; gap: 3px; font-size: 0.75rem; }
+.pet-affection span::before { content: '♥'; color: #efacba; font-size: 1.4rem; line-height: 1; }
+
+.pet-greeting {
+  position: absolute;
+  top: 21%;
+  left: 50%;
+  z-index: 2;
+  width: min(78%, 266px);
+  padding: clamp(14px, 2.9svh, 30px) 14px;
+  border-radius: 42px;
+  background: var(--pink);
+  text-align: center;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  translate: -50% 0;
+}
+
+.pet-greeting::after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 29%;
+  width: 32px;
+  height: 16px;
+  background: var(--pink);
+  clip-path: polygon(0 0, 100% 0, 64% 87%, 54% 100%, 45% 100%, 35% 88%);
+}
+
+.pet-home-avatar {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  width: min(116%, 52svh, 465px);
+  translate: -50% 0;
+}
+
+.pet-prop { display: block; background: url('/images/pet-home-artwork.jpg') no-repeat; background-size: 390px 844px; }
+.pet-scene-item { position: absolute; width: 76px; height: 76px; object-fit: contain; }
+.pet-scene-item--toy { bottom: calc(21% - 38px); left: -5px; }
+.pet-scene-item--bowl { bottom: 2.5%; left: 3%; }
+.pet-scene-item--frisbee { bottom: 1%; right: 26%; }
+.pet-backpack { position: absolute; right: 4%; bottom: 5.5%; padding: 0; background: transparent; text-align: center; font-size: 0.8125rem; }
+.pet-backpack .pet-prop { width: 67px; height: 68px; margin-bottom: 3px; background-position: -306px -628px; }
+.pet-home--dressing { min-height: 343px; }
+.pet-home--dressing .pet-home-avatar { top: 10%; width: min(91%, 43svh, 355px); }
+.pet-home--dressing .pet-scene-item { width: 62px; height: 62px; }
+.pet-home--dressing .pet-scene-item--toy { bottom: calc(21% - 23px); }
+.pet-save-outfit {
+  position: absolute;
+  z-index: 1;
+  right: 6%;
+  bottom: 11%;
+  min-width: 35px;
+  padding: 12px 6px;
+  border-radius: 20px;
+  background: var(--pink);
+  writing-mode: vertical-rl;
+  letter-spacing: .1em;
+}
+
+.discover { display: flex; flex: 1; flex-direction: column; background: #fff; overflow: hidden; }
 .discover-header {
   display: flex;
   position: relative;
@@ -289,14 +422,18 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--leaf); outl
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 6px 0 max(12px, env(safe-area-inset-bottom));
+  background: #fff;
   text-align: center;
 }
-.bottom-bar span { display: grid; justify-items: center; gap: 3px; font-size: 0.8125rem; }
+.app-shell--pet .bottom-bar { border-radius: 30px 30px 0 0; }
+.bottom-bar > * { display: grid; justify-items: center; gap: 3px; padding: 0; background: transparent; font-size: 0.8125rem; }
 .bottom-bar [aria-current] { font-weight: 700; }
 .tab-icon { width: 42px; height: 42px; background: url('/images/discover-artwork.jpg') -30px -769px / 390px 844px; }
-.bottom-bar span:nth-child(2) .tab-icon { background-position-x: -126px; }
-.bottom-bar span:nth-child(3) .tab-icon { background-position-x: -224px; }
-.bottom-bar span:nth-child(4) .tab-icon { background-position-x: -321px; }
+.app-shell--pet .tab-icon { background-image: url('/images/pet-home-artwork.jpg'); }
+.app-shell--profile .tab-icon { background-image: url('/images/profile-artwork.jpg'); }
+.bottom-bar > :nth-child(2) .tab-icon { background-position-x: -126px; }
+.bottom-bar > :nth-child(3) .tab-icon { background-position-x: -224px; }
+.bottom-bar > :nth-child(4) .tab-icon { background-position-x: -321px; }
 
 .exercise-dialog {
   width: min(88%, 360px);
