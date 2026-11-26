@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import { asset } from './asset'
 
 const props = defineProps({ outfit: { type: Object, required: true } })
 defineEmits(['equip', 'close'])
@@ -42,7 +43,7 @@ function isEquipped(item) {
         :aria-pressed="active === key"
         @click="active = key"
       >
-        <img :src="`/images/backpack/${tab.icon}.png`" alt="" />{{ tab.label }}
+        <img :src="asset(`images/backpack/${tab.icon}.png`)" alt="" />{{ tab.label }}
       </button>
       <button class="backpack-close" type="button" aria-label="关闭背包" @click="$emit('close')">×</button>
     </div>
@@ -55,7 +56,7 @@ function isEquipped(item) {
         :aria-pressed="isEquipped(item)"
         @click="$emit('equip', active, item)"
       >
-        <img :src="`/images/backpack/${item}.png`" alt="" />
+        <img :src="asset(`images/backpack/${item}.png`)" alt="" />
         <span>{{ label }}</span>
       </button>
       <span v-for="slot in 12 - category.items.length" :key="slot" class="backpack-empty" aria-hidden="true"></span>

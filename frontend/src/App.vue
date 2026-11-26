@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import { asset } from './asset'
 import PetAvatar from './PetAvatar.vue'
 import PetBackpack from './PetBackpack.vue'
 import ProfileCenter from './ProfileCenter.vue'
@@ -283,7 +284,7 @@ function closeBackpack() {
 
         <PetAvatar class="pet-home-avatar" :pet="pet" :label="petName" :outfit="outfit" />
         <img v-for="item in outfit.items" :key="item" class="pet-scene-item" :class="`pet-scene-item--${item}`"
-          :src="`/images/backpack/${item}.png`" alt="" />
+          :src="asset(`images/backpack/${item}.png`)" alt="" />
       </section>
 
       <PetBackpack v-if="backpackOpen" :outfit="outfit" @equip="changeOutfit" @close="closeBackpack" />
@@ -307,11 +308,11 @@ function closeBackpack() {
             @click="sleepOpen = !sleepOpen"
           >
             <span>{{ topic }}</span>
-            <img src="/images/pet-paw.png" alt="" />
+            <img :src="asset('images/pet-paw.png')" alt="" />
           </button>
           <div v-else class="topic">
             <span>{{ topic }}</span>
-            <img src="/images/pet-paw.png" alt="" />
+            <img :src="asset('images/pet-paw.png')" alt="" />
           </div>
         </template>
       </div>
@@ -321,7 +322,7 @@ function closeBackpack() {
         <button type="button" @click="page = 'meditation'">助眠冥想</button>
       </div>
       <div class="sleeping-pet" :class="{ 'sleeping-pet--small': sleepOpen }">
-        <img src="/images/pet-sleeping.png" alt="倚在花丛里打盹的小狗" />
+        <img :src="asset('images/pet-sleeping.png')" alt="倚在花丛里打盹的小狗" />
       </div>
 
       <dialog ref="exerciseDialog" class="exercise-dialog" aria-labelledby="exercise-title">

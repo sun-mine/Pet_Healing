@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { asset } from './asset'
 
 const props = defineProps({
   pet: { type: Object, required: true },
@@ -23,9 +24,9 @@ const original = computed(() => {
     :aria-label="label"
     :aria-hidden="label ? undefined : 'true'"
   >
-    <img v-if="original" class="avatar-art" src="/images/pet-waving.png" alt="" />
+    <img v-if="original" class="avatar-art" :src="asset('images/pet-waving.png')" alt="" />
     <template v-else>
-      <img v-if="!sample" class="avatar-art avatar-body" src="/images/pet-waving.png" alt="" />
+      <img v-if="!sample" class="avatar-art avatar-body" :src="asset('images/pet-waving.png')" alt="" />
       <div class="avatar-head" :data-shape="pet.shape">
         <div v-if="pet.ears !== 'none'" class="avatar-ears" :data-ears="pet.ears"></div>
         <div class="avatar-face" :data-expression="pet.expression">
@@ -39,14 +40,14 @@ const original = computed(() => {
       v-if="outfit?.accessory"
       class="avatar-accessory"
       :data-item="outfit.accessory"
-      :src="`/images/backpack/${outfit.accessory}.png`"
+      :src="asset(`images/backpack/${outfit.accessory}.png`)"
       alt=""
     />
     <img
       v-if="outfit?.clothes"
       class="avatar-clothes"
       :data-item="outfit.clothes"
-      :src="`/images/backpack/${outfit.clothes}.png`"
+      :src="asset(`images/backpack/${outfit.clothes}.png`)"
       alt=""
     />
   </div>

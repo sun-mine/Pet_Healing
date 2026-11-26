@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import { asset } from './asset'
 import PetAvatar from './PetAvatar.vue'
 import cues from './meditation-cues.json'
 
@@ -62,7 +63,7 @@ function back() {
     <button class="back-button" type="button" aria-label="返回" @click="back"><span aria-hidden="true"></span></button>
     <audio
       ref="audio"
-      src="/audio/sleep-meditation.wav"
+      :src="asset('audio/sleep-meditation.wav')"
       preload="metadata"
       @loadedmetadata="duration = audio.duration"
       @timeupdate="position = audio.currentTime"
